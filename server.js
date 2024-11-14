@@ -3,14 +3,17 @@ import dotenv from "dotenv";
 dotenv.config();
 import userRoutes from "./routes/userRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
+import connectDB from "./config/db.js";
 
 const app = express();
+
+//Connect DB
+connectDB();
 
 // user router
 app.use("/api/users", userRoutes);
 
 //Error Handler
-
 app.use(notFound);
 app.use(errorHandler);
 
