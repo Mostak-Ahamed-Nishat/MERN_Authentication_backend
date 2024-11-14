@@ -4,15 +4,22 @@ dotenv.config();
 import userRoutes from "./routes/userRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import connectDB from "./config/db.js";
-
+import cookieParser from 'cookie-parser';
 const app = express();
 
-//Connect DB
-connectDB();
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(cookieParser());
 
 // user router
 app.use("/api/users", userRoutes);
 
+//Connect DB
+connectDB();
 //Error Handler
 app.use(notFound);
 app.use(errorHandler);
